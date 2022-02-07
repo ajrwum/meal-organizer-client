@@ -1,11 +1,11 @@
-import { Routes, Route } from 'react-router-dom';
-import NavMain from './components/Nav/NavMain';
-import Home from './pages/Home';
-import Signin from './pages/Signin';
-import Signup from './pages/Signup';
-import Profile from './pages/Profile';
-import PrivateRoute from './components/ProtectedRoute/PrivateRoute';
-import CreateMealForm from './components/Forms/CreateMealForm';
+import { Routes, Route } from "react-router-dom";
+import NavMain from "./components/Nav/NavMain";
+import Home from "./pages/Home";
+import Signin from "./pages/Signin";
+import Signup from "./pages/Signup";
+import Profile from "./pages/Profile";
+import PrivateRoute from "./components/ProtectedRoute/PrivateRoute";
+import CreateMealForm from "./components/Forms/CreateMealForm";
 
 function App() {
   return (
@@ -15,13 +15,22 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
-        {/* <Route path="/foods" element={<Foods />} /> */}
         {/* <Route path="/meals/meal/:id" element={<OneMeal />} /> */}
         {/* <Route path="/meals/:date" element={<Meals />} /> */}
         <Route element={<PrivateRoute />}>
           <Route
             path="/meals/meal/new"
             element={<CreateMealForm mealDate={new Date()} />}
+          />
+          <Route path="/foods" element={<Foods />} />
+          <Route path="/foods/food" element={<OneFood />} />
+          <Route
+            path="/foods/food/new"
+            element={<OneFoodForm action="create" />}
+          />
+          <Route
+            path="/foods/food/:id"
+            element={<OneFoodForm action="edit" />}
           />
           <Route path="/profile" element={<Profile />} />
         </Route>
