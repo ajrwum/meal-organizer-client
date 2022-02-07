@@ -24,11 +24,9 @@ const apiHandler = {
 			.then((res) => res.data)
 			.catch(errorHandler);
 	},
-	isLoggedIn(token) {
+	isLoggedIn() {
 		return service
-			.get("/api/auth/me", {
-				headers: { Authorization: `Bearer ${token}` },
-			})
+			.get("/api/auth/is-loggedin")
 			.then((res) => res.data)
 			.catch(errorHandler);
 	},
@@ -40,12 +38,13 @@ const apiHandler = {
 			.catch(errorHandler);
 	},
 
-	// getAllTheCats() {
-	// 	return service
-	// 		.get("/api/cats")
-	// 		.then((res) => res.data)
-	// 		.catch(errorHandler);
-	// },
+	signout() {
+		return service
+			.get("/api/auth/signout")
+			.then((res) => res.data)
+			.catch(errorHandler);
+	}
+
 };
 
 export default apiHandler;
