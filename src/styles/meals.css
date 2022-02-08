@@ -1,0 +1,21 @@
+.draggable-food {
+  cursor: move;
+}
+
+.drop-zone {
+  border: 1px solid slategrey;
+}
+
+.drop-zone.over {
+  border: 4px dashed green;
+}
+
+.drop-zone.dragover {
+  border: 2px dotted red;
+}
+
+.added-food {
+  min-width: 100px;
+  display: flex;
+  justify-content: space-between;
+}

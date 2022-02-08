@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Signin from './pages/Signin';
 import Signup from './pages/Signup';
 import Profile from './pages/Profile';
+import Meals from './pages/Meals';
 import PrivateRoute from './components/ProtectedRoute/PrivateRoute';
 import CreateMealForm from './components/Forms/CreateMealForm';
 
@@ -19,6 +20,8 @@ function App() {
         {/* <Route path="/meals/meal/:id" element={<OneMeal />} /> */}
         {/* <Route path="/meals/:date" element={<Meals />} /> */}
         <Route element={<PrivateRoute />}>
+          <Route path="/meals" element={<Meals />} />
+          <Route path="/meals/:date" element={<Meals />} />
           <Route
             path="/meals/meal/new"
             element={<CreateMealForm mealDate={new Date()} />}
