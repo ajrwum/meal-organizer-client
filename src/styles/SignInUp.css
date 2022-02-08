@@ -1,0 +1,26 @@
+.title {
+  margin: 2rem 0 0 2rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+  align-items: center;
+}
+
+.form-group {
+  margin: 1rem;
+  font-size: 1.3em;
+}
+
+.form-control {
+  width: 47vw;
+}
+
+.signInBtn,
+.signUpBtn {
+  padding: 0 1em;
+  font-size: 1.3em;
+}

@@ -1,0 +1,67 @@
+.addFood {
+  margin-left: 5rem;
+  border: 1px solid;
+  padding: 0 0.5em;
+}
+
+.container {
+  padding: 1rem;
+  margin: 2rem;
+  font-size: 1.3em;
+}
+
+.box {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid;
+  padding: 1rem;
+  margin: 1rem;
+  width: 33vw;
+}
+
+.left-items {
+  display: flex;
+}
+
+.catColor {
+  height: 30px;
+  width: 30px;
+  border: 1px solid;
+  margin-right: 1em;
+}
+
+.actionBtn span {
+  margin-right: 0.5em;
+}
+
+.fa-trash-can {
+  cursor: pointer;
+}
+
+/* One Food Form Styling */
+
+.title {
+  margin: 2rem 0 0 2rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+  align-items: center;
+}
+
+.form-group {
+  margin: 1rem;
+  font-size: 1.3em;
+}
+
+.form-control {
+  width: 47vw;
+}
+
+.createAFoodBtn {
+  padding: 0 1em;
+  font-size: 1.3em;
+}

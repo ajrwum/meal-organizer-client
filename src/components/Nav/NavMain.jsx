@@ -13,15 +13,19 @@ const NavMain = () => {
         <>
           <NavLink to="/profile">{currentUser && currentUser.email}</NavLink>
           <NavLink to="/meals">Mes repas de la semaine</NavLink>
-          <NavLink to="/meals/meal/new">Créer un Repas</NavLink> // dev mode
+          <NavLink to="/meals/meal/new">Créer un Repas</NavLink>
           <NavLink to="/foods">Mes Aliments</NavLink>
-          <button onClick={removeUser}>Déconnexion</button>
+          <div className="navLogout">
+            <button onClick={removeUser}>Déconnexion</button>
+          </div>
         </>
       )}
       {!isLoggedIn && (
         <>
-          <NavLink to="/signin">Connexion</NavLink>
-          <NavLink to="/signup">Inscription</NavLink>
+          <div className="navActions">
+            <NavLink to="/signin">Connexion</NavLink>
+            <NavLink to="/signup">Inscription</NavLink>
+          </div>
         </>
       )}
     </nav>

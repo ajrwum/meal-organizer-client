@@ -1,4 +1,39 @@
+@import url("https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap");
+
 .NavMain {
-	display: flex;
-	gap: 0.5em;
+  display: flex;
+  gap: 0.5em;
+  padding: 1rem;
+  font-size: 1.3em;
+  align-items: center;
+  background-color: #e9e6e6;
+}
+
+.logo {
+  font-family: "Permanent Marker", cursive;
+  font-size: 2em;
+  margin-left: 0.5em;
+}
+
+.navLogout {
+  justify-self: end;
+  display: flex;
+  width: 45vw;
+  justify-content: flex-end;
+}
+
+.navLogout button {
+  padding: 0 0.5em;
+}
+
+.navActions {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.navActions a {
+  border: 1px solid;
+  padding: 0 0.5em;
+  margin-right: 0.5em;
 }

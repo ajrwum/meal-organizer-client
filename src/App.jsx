@@ -6,6 +6,9 @@ import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
 import PrivateRoute from "./components/ProtectedRoute/PrivateRoute";
 import CreateMealForm from "./components/Forms/CreateMealForm";
+import Foods from "./pages/Foods";
+import OneFood from "./pages/OneFood";
+import OneFoodForm from "./components/Forms/OneFoodForm";
 
 function App() {
   return (
@@ -23,13 +26,13 @@ function App() {
             element={<CreateMealForm mealDate={new Date()} />}
           />
           <Route path="/foods" element={<Foods />} />
-          <Route path="/foods/food" element={<OneFood />} />
+          <Route path="/foods/food/view/:id" element={<OneFood />} />
           <Route
             path="/foods/food/new"
             element={<OneFoodForm action="create" />}
           />
           <Route
-            path="/foods/food/:id"
+            path="/foods/food/edit/:id"
             element={<OneFoodForm action="edit" />}
           />
           <Route path="/profile" element={<Profile />} />
