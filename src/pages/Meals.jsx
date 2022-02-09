@@ -23,21 +23,21 @@ const Meals = () => {
     console.log('today :>> ', today);
     mondayDate = getMondayBeforeOrEqual(today);
   }
+  const navDays = getNavDates(mondayDate);
+  const weekDates = getWeekDates(mondayDate);
   const mondayDateForDisplay = mondayDate.toLocaleDateString(undefined, {
     weekday: 'long',
     year: 'numeric',
     month: 'long',
     day: 'numeric',
   });
-  const weekDates = getWeekDates(mondayDate);
-  const navDays = getNavDates(mondayDate);
-
-  const [date, setDate] = useState(mondayDate);
-
-  const [meals, setMeals] = useState([]);
   console.log('mondayDate :>> ', mondayDate);
 
+  const [meals, setMeals] = useState([]);
+  const [needReload, setNeedReload] = useState(false);
+
   useEffect(() => {
+    console.log('===== Meals mounted, call to apiHandler');
     apiHandler.get(`/meals/${mondayDate.toISOString()}`).then(({ data }) => {
       console.log('*********************');
       console.log('*********************');
@@ -51,7 +51,7 @@ const Meals = () => {
       );
       setMeals(data);
     });
-  }, [date]);
+  }, [params.date, needReload]);
 
   const handleDeleteMeal = (e) => {
     const mealId = e.target.id;
@@ -59,6 +59,7 @@ const Meals = () => {
     apiHandler.delete(`/meals/meal/${mealId}`).then((response) => {
       console.log('response.data :>> ', response.data);
       setMeals(meals.filter((meal) => meal._id !== mealId));
+      setNeedReload(!needReload);
     });
   };
 

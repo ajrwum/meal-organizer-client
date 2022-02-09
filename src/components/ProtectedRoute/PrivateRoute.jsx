@@ -1,6 +1,6 @@
-import React from "react";
-import useAuth from "../../auth/useAuth";
-import { Navigate, Outlet } from "react-router-dom";
+import React from 'react';
+import useAuth from '../../auth/useAuth';
+import { Navigate, Outlet } from 'react-router-dom';
 
 const PrivateRoute = () => {
   const { isLoggedIn, isLoading } = useAuth();
