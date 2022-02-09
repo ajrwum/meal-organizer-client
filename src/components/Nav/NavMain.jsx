@@ -16,7 +16,6 @@ const NavMain = () => {
           <NavLink to={`/meals/${today.toISOString()}`}>
             Mes repas de la semaine
           </NavLink>
-          <NavLink to="/meals/meal/new">Créer un Repas</NavLink>
           <NavLink to="/foods">Mes Aliments</NavLink>
           <div className="navLogout">
             <button onClick={removeUser}>Déconnexion</button>
