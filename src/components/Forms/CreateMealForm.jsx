@@ -147,7 +147,7 @@ const CreateMealForm = () => {
       .post('/meals/meal', meal)
       .then((response) => {
         console.log('response :>> ', response);
-        navigate('/meals');
+        navigate(`/meals/${mealDate}`);
       })
       .catch((e) => {
         console.error(e);
