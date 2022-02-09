@@ -1,6 +1,6 @@
-import { NavLink } from 'react-router-dom';
-import useAuth from '../../auth/useAuth';
-import '../../styles/NavMain.css';
+import { NavLink } from "react-router-dom";
+import useAuth from "../../auth/useAuth";
+import "../../styles/NavMain.css";
 
 const NavMain = () => {
   const { isLoggedIn, currentUser, removeUser } = useAuth();
@@ -12,11 +12,16 @@ const NavMain = () => {
       </NavLink>
       {isLoggedIn && (
         <>
-          <NavLink to="/profile">{currentUser && currentUser.email}</NavLink>
-          <NavLink to={`/meals/${today.toISOString()}`}>
-            Mes repas de la semaine
+          <NavLink className="menu" to="/profile">
+            {currentUser && currentUser.email}
           </NavLink>
-          <NavLink to="/foods">Mes Aliments</NavLink>
+          <NavLink className="menu" to={`/meals/${today.toISOString()}`}>
+            Mes repas
+          </NavLink>
+          {/* <NavLink to="/meals/meal/new">Créer un Repas</NavLink> */}
+          <NavLink className="menu" to="/foods">
+            Mes Aliments
+          </NavLink>
           <div className="navLogout">
             <button onClick={removeUser}>Déconnexion</button>
           </div>
