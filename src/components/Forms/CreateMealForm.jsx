@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import apiHandler from '../../api/apiHandler';
 import UserContext from '../../auth/UserContext';
 
 import './../../styles/meals.css';
 
-const CreateMealForm = ({ mealDate }) => {
+const CreateMealForm = () => {
+  const { mealDate } = useParams();
   console.log('--- CreateMealForm - mealDate :>> ', mealDate);
 
   // reference lists from db
@@ -15,7 +16,7 @@ const CreateMealForm = ({ mealDate }) => {
   // states for the meal form
   const [type, setType] = useState('');
   const [foods, setFoods] = useState([]);
-  const [date, setDate] = useState(mealDate);
+  const [date, setDate] = useState(new Date(mealDate.slice(0, 10)));
   // state for the added food(s) after drag & drop
   const [addedFoods, setAddedFoods] = useState([]);
   // state for message to display in cadse of unexpected action
@@ -27,7 +28,7 @@ const CreateMealForm = ({ mealDate }) => {
   const { currentUser } = userContext;
   console.log('currentUser :>> ', currentUser.currentUser._id);
 
-  const mealDateForDisplay = mealDate.toLocaleDateString(undefined, {
+  const mealDateForDisplay = date.toLocaleDateString(undefined, {
     weekday: 'long',
     year: 'numeric',
     month: 'long',

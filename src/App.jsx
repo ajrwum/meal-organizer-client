@@ -7,6 +7,7 @@ import Profile from './pages/Profile';
 import Meals from './pages/Meals';
 import PrivateRoute from './components/ProtectedRoute/PrivateRoute';
 import CreateMealForm from './components/Forms/CreateMealForm';
+import EditMealForm from './components/Forms/EditMealForm';
 
 function App() {
   return (
@@ -23,9 +24,10 @@ function App() {
           <Route path="/meals" element={<Meals />} />
           <Route path="/meals/:date" element={<Meals />} />
           <Route
-            path="/meals/meal/new"
-            element={<CreateMealForm mealDate={new Date()} />}
+            path="/meals/meal/new/:mealDate"
+            element={<CreateMealForm />}
           />
+          <Route path="/meals/meal/edit/:mealId" element={<EditMealForm />} />
           <Route path="/profile" element={<Profile />} />
         </Route>
       </Routes>
