@@ -35,15 +35,13 @@ const Foods = () => {
       {foods &&
         foods.map((food) => {
           return (
-            <>
-              <FoodItem
-                key={food._id}
-                food={food}
-                viewClbk
-                editClbk
-                deleteClbk={handleDelete}
-              />
-            </>
+            <FoodItem
+              key={food._id}
+              food={food}
+              viewClbk
+              editClbk
+              deleteClbk={handleDelete}
+            />
           );
         })}
     </div>

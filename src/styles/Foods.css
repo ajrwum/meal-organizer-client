@@ -65,3 +65,9 @@ form {
   padding: 0 1em;
   font-size: 1.3em;
 }
+
+@media (max-width: 956px) {
+  .box {
+    width: 100%;
+  }
+}
