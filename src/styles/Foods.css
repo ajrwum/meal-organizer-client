@@ -132,6 +132,11 @@ form {
   width: 33vw;
 }
 
+.return {
+  padding: 1rem;
+  margin: 1rem;
+}
+
 @media (max-width: 1242px) {
   .box {
     width: 100%;
