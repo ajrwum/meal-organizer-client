@@ -2,17 +2,21 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import apiHandler from '../../api/apiHandler';
 import UserContext from '../../auth/UserContext';
+import useDeviceDetection from '../../hooks/useDeviceDetection'; // custom hook
 
 import './../../styles/meals.css';
 
 const CreateMealForm = () => {
   const { mealDate } = useParams();
-  console.log('--- CreateMealForm - mealDate :>> ', mealDate);
+  // console.log('--- CreateMealForm - mealDate :>> ', mealDate);
+
+  // testing the device (mobile or not)
+  const deviceType = useDeviceDetection();
+  // console.log('>>>>>>> useDeviceDetection - deviceType :>> ', deviceType);
 
   // reference lists from db
   const [mealTypes, setMealTypes] = useState([]);
   const [dbFoods, setDbFoods] = useState([]);
-  console.log('dbFoods[0] :>> ', dbFoods[0]);
   // states for the meal form
   const [type, setType] = useState('');
   const [foods, setFoods] = useState([]);
@@ -24,46 +28,51 @@ const CreateMealForm = () => {
 
   const navigate = useNavigate();
 
+  // easy way to get the user id for the request to db
   const userContext = useContext(UserContext);
   const { currentUser } = userContext;
-  console.log('currentUser :>> ', currentUser.currentUser._id);
+  // console.log('currentUser :>> ', currentUser.currentUser._id);
 
+  // display the date for easy reading (locale used but not forced to any language)
   const mealDateForDisplay = date.toLocaleDateString(undefined, {
     weekday: 'long',
     year: 'numeric',
     month: 'long',
     day: 'numeric',
   });
-  console.log('mealDateForDisplay :>> ', mealDateForDisplay);
+  // console.log('mealDateForDisplay :>> ', mealDateForDisplay);
 
+  // getting the reference list of meal types for the select
   useEffect(() => {
     apiHandler.get('/meals/mealtypes').then(({ data }) => {
-      console.log('mealtypes - apiRes.data :>> ', data);
+      // console.log('mealtypes - apiRes.data :>> ', data);
       setMealTypes(data);
     });
   }, []);
 
+  // getting the user's reference list of foods
   useEffect(() => {
     apiHandler.get('/foods').then(({ data }) => {
-      console.log('dbFoods - apiRes.data :>> ', data);
+      // console.log('dbFoods - apiRes.data :>> ', data);
       setDbFoods(data);
     });
   }, [foods, addedFoods]);
 
+  // browser only (no touch event support)
   const handleDragStart = (e) => {
-    // e.preventDefault();
-    console.log('--- handleDragStart - e.target :>> ', e.target);
-    console.log('dragStart: dropEffect = ', e.dataTransfer.dropEffect);
-    console.log('dragStart: effectAllowed = ', e.dataTransfer.effectAllowed);
+    // console.log('--- handleDragStart - e.target :>> ', e.target);
+    // console.log('dragStart: dropEffect = ', e.dataTransfer.dropEffect);
+    // console.log('dragStart: effectAllowed = ', e.dataTransfer.effectAllowed);
 
     e.dataTransfer.setData('id', e.target.id);
     e.dataTransfer.effectAllowed = 'copy';
   };
 
+  // browser only (no touch event support)
   const handleDragOver = (e) => {
     // console.log('--- handleDragOver - e.target :>> ', e.target);
-    console.log('dragOver: dropEffect = ', e.dataTransfer.dropEffect);
-    console.log('dragOver: effectAllowed = ', e.dataTransfer.effectAllowed);
+    // console.log('dragOver: dropEffect = ', e.dataTransfer.dropEffect);
+    // console.log('dragOver: effectAllowed = ', e.dataTransfer.effectAllowed);
 
     // e.preventDefault();
     if (e.preventDefault) {
@@ -73,49 +82,64 @@ const CreateMealForm = () => {
     return false;
   };
 
+  // browser only (no touch event support)
   const handleDrop = (e) => {
-    console.log('--- handleDrop - e.target :>> ', e.target);
+    // console.log('--- handleDrop - e.target :>> ', e.target);
     // reset message for new drop
     setMsg(null);
     e.target.parentElement.classList.toggle('over');
-    console.log('drop: dropEffect = ', e.dataTransfer.dropEffect);
-    console.log('drop: effectAllowed = ', e.dataTransfer.effectAllowed);
+    // console.log('drop: dropEffect = ', e.dataTransfer.dropEffect);
+    // console.log('drop: effectAllowed = ', e.dataTransfer.effectAllowed);
 
-    console.log('foods :>> ', foods);
+    // console.log('foods :>> ', foods);
     e.preventDefault();
     e.stopPropagation();
     e.dataTransfer.dropEffect = 'copy';
     const foodId = e.dataTransfer.getData('id');
     e.dataTransfer.dropEffect = 'copy';
-    console.log('foodId :>> ', foodId);
-    console.log(
-      'document.getElementById(foodId) :>> ',
-      document.getElementById(foodId)
-    );
+    // console.log('foodId :>> ', foodId);
+    // console.log(
+    //   'document.getElementById(foodId) :>> ',
+    //   document.getElementById(foodId)
+    // );
     if (!foods.includes(foodId)) {
-      // e.target.appendChild(document.getElementById(foodId));
-      const foodName = document.getElementById(foodId).innerHTML;
-      // const clone = document.getElementById(foodId).cloneNode();
-      // clone.innerHTML = foodName;
-      // console.log('clone :>> ', clone);
-      // e.target.appendChild(clone);
       setFoods([...foods, foodId]);
       apiHandler.get(`/foods/food/${foodId}`).then(({ data }) => {
         setAddedFoods([...addedFoods, data]);
       });
     } else {
-      setMsg({ type: 'warn', text: 'Cet aliment a déjà été ajouté' });
+      setMsg({ type: 'warning', text: 'Cet aliment a déjà été ajouté' });
+    }
+    return false;
+  };
+
+  const handleAddByClick = (e) => {
+    // console.log('--- handleAddByClick - e.target :>> ', e.target);
+    e.preventDefault();
+
+    // reset message for new add
+    setMsg(null);
+
+    const foodId = e.target.id;
+
+    // prevent duplicate add
+    if (!foods.includes(foodId)) {
+      setFoods([...foods, foodId]);
+      apiHandler.get(`/foods/food/${foodId}`).then(({ data }) => {
+        setAddedFoods([...addedFoods, data]);
+      });
+    } else {
+      setMsg({ type: 'warning', text: 'Cet aliment a déjà été ajouté' });
     }
     return false;
   };
 
   const handleDeleteFoodFromMeal = (e) => {
-    console.log('--- handleDeleteFoodFromMeal');
+    // console.log('--- handleDeleteFoodFromMeal');
     // prevent action on button to submit the meal form
     e.preventDefault();
     // console.log('parentElement :>> ', e.target.parentElement);
     // console.log('parentElement.id :>> ', e.target.parentElement.id);
-    console.log('addedFoods :>> ', addedFoods);
 
     // get the foodId to remove from meal
     const foodId = e.target.parentElement.id.split('_')[1];
@@ -130,7 +154,7 @@ const CreateMealForm = () => {
   };
 
   const handleSubmit = (e) => {
-    console.log('--- handleSubmit - e.target :>> ', e.target);
+    // console.log('--- handleSubmit - e.target :>> ', e.target);
     e.preventDefault();
 
     // set the meal object
@@ -140,13 +164,13 @@ const CreateMealForm = () => {
       user: currentUser.currentUser._id,
       date: date,
     };
-    console.log('meal :>> ', meal);
+    // console.log('meal :>> ', meal);
 
     // call the apiHandler to get to the server
     apiHandler
       .post('/meals/meal', meal)
       .then((response) => {
-        console.log('response :>> ', response);
+        // console.log('response :>> ', response);
         navigate(`/meals/${mealDate}`);
       })
       .catch((e) => {
@@ -159,7 +183,7 @@ const CreateMealForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="meal-form create" onSubmit={handleSubmit}>
       <h2>Création de repas</h2>
 
       {msg && (
@@ -173,7 +197,9 @@ const CreateMealForm = () => {
           <label htmlFor="date">Date : </label>
           <span>{mealDateForDisplay}</span>
         </div>
-        <div className="meal-type">
+        <div
+          className={deviceType === 'mobile' ? 'meal-type mobile' : 'meal-type'}
+        >
           <label htmlFor="type">Type de repas : </label>
           <select
             name="type"
@@ -195,29 +221,59 @@ const CreateMealForm = () => {
         <div className="dnd-action-div">
           <div className="meal-drag-div">
             <h3>Tous les aliments :</h3>
-            <div>
-              {dbFoods &&
-                dbFoods.map((dbFood) => {
-                  return (
-                    <div
-                      key={dbFood._id}
-                      id={dbFood._id}
-                      value={dbFood._id}
-                      className="draggable-food"
-                      draggable="true"
-                      onDragStart={handleDragStart}
-                    >
-                      {dbFood.name}
-                    </div>
-                  );
-                })}
+            <div className="ref-food-list">
+              {deviceType === 'mobile'
+                ? dbFoods &&
+                  dbFoods.map((dbFood) => {
+                    return (
+                      <div
+                        key={dbFood._id}
+                        value={dbFood._id}
+                        className="draggable-food meal-food mobile"
+                        // draggable="true"
+                      >
+                        <div className="food-info">
+                          <div
+                            className="catColor"
+                            style={{ backgroundColor: dbFood.category?.color }}
+                          ></div>
+                          <span className="food-name">{dbFood.name}</span>
+                        </div>
+                        <button
+                          id={dbFood._id}
+                          className="actionBtn"
+                          onClick={handleAddByClick}
+                        >
+                          Ajouter
+                        </button>
+                      </div>
+                    );
+                  })
+                : dbFoods &&
+                  dbFoods.map((dbFood) => {
+                    return (
+                      <div
+                        key={dbFood._id}
+                        id={dbFood._id}
+                        value={dbFood._id}
+                        className="draggable-food meal-food"
+                        draggable="true"
+                        onDragStart={handleDragStart}
+                      >
+                        <div
+                          className="catColor"
+                          style={{ backgroundColor: dbFood.category?.color }}
+                        ></div>
+                        <span className="food-name">{dbFood.name}</span>
+                      </div>
+                    );
+                  })}
             </div>
           </div>
 
           <div className="meal-drop-div">
             <div>
-              <h3>Aliments du repas :</h3>
-              {/* <label htmlFor="foods">Aliments du repas : </label> */}
+              <label htmlFor="foods">Aliments du repas : </label>
               <div
                 name="foods"
                 id="foods"
@@ -233,7 +289,12 @@ const CreateMealForm = () => {
                 onDragOver={handleDragOver}
                 onDrop={handleDrop}
               >
-                <div key="-1">Déposer ici les aliments souhaités :</div>
+                <div key="-1" id="drop-target1">
+                  <span>
+                    Déposer ici les aliments souhaités depuis la liste{' '}
+                    {deviceType === 'mobile' ? 'ci-dessous' : 'ci-contre'} :
+                  </span>
+                </div>
                 {addedFoods &&
                   addedFoods.map((addedFood) => {
                     return (
@@ -241,22 +302,32 @@ const CreateMealForm = () => {
                         key={`added_${addedFood._id}`}
                         id={`added_${addedFood._id}`}
                         value={addedFood._id}
-                        className="added-food"
+                        className="added-food meal-food"
                       >
-                        <span>{addedFood.name}</span>
-                        <button onClick={handleDeleteFoodFromMeal}>
-                          Supprimer
+                        <div className="food-info">
+                          <div
+                            className="catColor"
+                            style={{
+                              backgroundColor: addedFood.category?.color,
+                            }}
+                          ></div>
+                          <span className="food-name">{addedFood.name}</span>
+                        </div>
+                        <button
+                          className="actionBtn"
+                          onClick={handleDeleteFoodFromMeal}
+                        >
+                          Retirer
                         </button>
                       </div>
                     );
                   })}
               </div>
             </div>
+            <button className="submit-btn">Ok</button>
           </div>
         </div>
       </div>
-
-      <button>Ok</button>
     </form>
   );
 };

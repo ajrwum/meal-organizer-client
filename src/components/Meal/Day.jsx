@@ -3,24 +3,24 @@ import { Link, useNavigate } from 'react-router-dom';
 import apiHandler from '../../api/apiHandler';
 
 const Day = ({ dayDate, meals, deleteClbk }) => {
-  console.log('--- Day');
+  // console.log('--- Day');
   const navigate = useNavigate();
 
-  console.log('dayDate :>> ', dayDate);
-  console.log('dayDate.toISOString() :>> ', dayDate.toISOString());
+  // console.log('dayDate :>> ', dayDate);
+  // console.log('dayDate.toISOString() :>> ', dayDate.toISOString());
   const dayDateForDisplay = dayDate.toLocaleDateString(undefined, {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
+    weekday: 'short',
+    // year: 'numeric',
+    month: 'short',
     day: 'numeric',
   });
-  console.log('dayDateForDisplay :>> ', dayDateForDisplay);
+  // console.log('dayDateForDisplay :>> ', dayDateForDisplay);
 
-  console.log('meals :>> ', meals);
+  // console.log('meals :>> ', meals);
 
   const handleAddMeal = (e) => {
     const mealDate = e.target.id;
-    console.log('handleAddMeal - mealDate :>> ', mealDate);
+    // console.log('handleAddMeal - mealDate :>> ', mealDate);
     navigate(`/meals/meal/new/${mealDate}`);
   };
 
@@ -38,10 +38,10 @@ const Day = ({ dayDate, meals, deleteClbk }) => {
         {meals &&
           meals.map((meal, i) => {
             return (
-              <>
+              <div key={meal._id}>
                 <div key={meal._id} className="meal-card">
                   <div className="meal-card-title">
-                    <h5>{meal.type.name}</h5>
+                    <div>{meal.type.name}</div>
                     <div className="meal-card-btn actionBtn">
                       <span>
                         <Link to={`/meals/meal/edit/${meal._id}`}>
@@ -62,14 +62,20 @@ const Day = ({ dayDate, meals, deleteClbk }) => {
                       return (
                         <div
                           key={`${food._id}_${i}_${j}`}
-                          className="meal-food"
+                          className="food-info"
                         >
-                          <span>{food.name}</span>
+                          <div
+                            className="catColor"
+                            style={{
+                              backgroundColor: food.category?.color,
+                            }}
+                          ></div>
+                          <span className="meal-food">{food.name}</span>
                         </div>
                       );
                     })}
                 </div>
-              </>
+              </div>
             );
           })}
       </div>

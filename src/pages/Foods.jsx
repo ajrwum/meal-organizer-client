@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import apiHandler from "../api/apiHandler";
-import FoodItem from "../components/Food/FoodItem";
-import "../styles/Foods.css";
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import apiHandler from '../api/apiHandler';
+import FoodItem from '../components/Food/FoodItem';
+import '../styles/Foods.css';
 
 const Foods = () => {
   const [foods, setFoods] = useState([]);
@@ -10,16 +10,16 @@ const Foods = () => {
   const [isFilterDeactivated, setIsFilterDeactivated] = useState(false);
 
   useEffect(() => {
-    console.log("component mounted");
-    apiHandler.get("/foods").then(({ data }) => {
-      console.log("foods - apiRes.data >>>", data);
+    // console.log("component mounted");
+    apiHandler.get('/foods').then(({ data }) => {
+      // console.log("foods - apiRes.data >>>", data);
       setFoods(data);
     });
   }, [isFilterDeactivated]);
 
   useEffect(() => {
-    apiHandler.get("/foods/categories").then((response) => {
-      console.log("response :>> ", response);
+    apiHandler.get('/foods/categories').then((response) => {
+      console.log('response :>> ', response);
       setCategories(response.data);
     });
   }, []);
@@ -31,10 +31,10 @@ const Foods = () => {
   };
 
   const handleFilter = (e) => {
-    console.log("filtering... :>> ");
+    console.log('filtering... :>> ');
     e.preventDefault();
     apiHandler.get(`/foods/${e.target.id}`).then((response) => {
-      console.log("***response*** :>> ", response);
+      console.log('***response*** :>> ', response);
       setFoods(response.data);
     });
   };

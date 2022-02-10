@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import UserContext from "./UserContext";
-import apiHandler from "../api/apiHandler";
+import { useState, useEffect } from 'react';
+import UserContext from './UserContext';
+import apiHandler from '../api/apiHandler';
 
 const UserProvider = ({ children }) => {
   const [auth, setAuth] = useState({
@@ -13,11 +13,12 @@ const UserProvider = ({ children }) => {
     authenticateUser();
   }, []);
 
-  const authenticateUser = () => {
+  const authenticateUser = (clbk) => {
     apiHandler
       .isLoggedIn()
       .then((user) => {
         setAuth({ currentUser: user, isLoading: false, isLoggedIn: true });
+        if (clbk && typeof clbk === 'function') clbk();
       })
       .catch((err) => {
         console.error(err);
