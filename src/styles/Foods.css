@@ -69,10 +69,6 @@
 
 /* One Food Form Styling */
 
-.title {
-  margin: 2rem 0 0 2rem;
-}
-
 form {
   display: flex;
   flex-direction: column;

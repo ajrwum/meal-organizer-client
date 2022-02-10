@@ -57,7 +57,7 @@ const FormSignIn = () => {
             value={password}
           />
         </div>
-        <button className="signInBtn">Connexion</button>
+        <button className="submit-btn">Connexion</button>
       </form>
     </>
   );

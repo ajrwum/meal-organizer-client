@@ -92,7 +92,7 @@ const EditFoodForm = () => {
           rows="5"
         ></textarea>
       </div>
-      <button className="editFoodFormBtn" onClick={handleSubmit}>
+      <button className="submit-btn" onClick={handleSubmit}>
         Mettre à jour
       </button>
     </form>

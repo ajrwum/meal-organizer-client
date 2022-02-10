@@ -90,7 +90,7 @@ const OneFoodForm = ({ action }) => {
             rows="5"
           ></textarea>
         </div>
-        <button className="createAFoodBtn">Créer</button>
+        <button className="submit-btn">Créer</button>
       </form>
     </div>
   );
