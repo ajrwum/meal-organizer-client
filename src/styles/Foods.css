@@ -44,6 +44,21 @@
   cursor: pointer;
 }
 
+.filters {
+  display: flex;
+  gap: 0.2em;
+  padding: 0.5rem;
+  /* margin: 0 0.5rem; */
+  flex-wrap: wrap;
+  width: 50vw;
+}
+
+.filterBtn,
+.allFoodBtn {
+  margin: 0.2rem;
+  padding: 0 0.5rem;
+}
+
 /* One Food Form Styling */
 
 .title {
@@ -115,5 +130,9 @@ form {
 @media (max-width: 956px) {
   .box {
     width: 100%;
+  }
+
+  .filters {
+    width: auto;
   }
 }
