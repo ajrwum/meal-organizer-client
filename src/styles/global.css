@@ -33,6 +33,15 @@ h6 {
   cursor: pointer;
 }
 
+.submit-btn {
+  background-color: black;
+  color: white;
+  font-weight: bold;
+  margin: 1.5rem 0;
+  padding: .5rem 1rem;
+  border-radius: 5px;
+}
+
 .msg {
   margin: .8rem 0;
   padding: .5rem 1rem;

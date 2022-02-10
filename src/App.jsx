@@ -1,21 +1,21 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route } from 'react-router-dom';
 
-import NavMain from "./components/Nav/NavMain";
-import Home from "./pages/Home";
+import NavMain from './components/Nav/NavMain';
+import Home from './pages/Home';
 
-import Signin from "./pages/Signin";
-import Signup from "./pages/Signup";
-import Profile from "./pages/Profile";
-import PrivateRoute from "./components/ProtectedRoute/PrivateRoute";
+import Signin from './pages/Signin';
+import Signup from './pages/Signup';
+import Profile from './pages/Profile';
+import PrivateRoute from './components/ProtectedRoute/PrivateRoute';
 
-import Foods from "./pages/Foods";
-import OneFood from "./pages/OneFood";
-import OneFoodForm from "./components/Forms/OneFoodForm";
-import EditFoodForm from "./components/Forms/EditFoodForm";
+import Foods from './pages/Foods';
+import OneFood from './pages/OneFood';
+import OneFoodForm from './components/Forms/OneFoodForm';
+import EditFoodForm from './components/Forms/EditFoodForm';
 
-import Meals from "./pages/Meals";
-import CreateMealForm from "./components/Forms/CreateMealForm";
-import EditMealForm from "./components/Forms/EditMealForm";
+import Meals from './pages/Meals';
+import CreateMealForm from './components/Forms/CreateMealForm';
+import EditMealForm from './components/Forms/EditMealForm';
 
 function App() {
   return (

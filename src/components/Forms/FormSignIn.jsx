@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-import useForm from "../../hooks/useForm";
-import apiHandler from "../../api/apiHandler";
-import useAuth from "../../auth/useAuth";
-import { useNavigate } from "react-router-dom";
-import "../../styles/SignInUp.css";
+import React, { useState } from 'react';
+import useForm from '../../hooks/useForm';
+import apiHandler from '../../api/apiHandler';
+import useAuth from '../../auth/useAuth';
+import { useNavigate } from 'react-router-dom';
+import '../../styles/SignInUp.css';
 
 const FormSignIn = () => {
   const [{ email, password }, handleChange] = useForm({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -16,12 +16,14 @@ const FormSignIn = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const today = new Date();
     apiHandler
       .signin({ email, password })
       .then((res) => {
-        console.log(res);
-        authenticateUser();
-        navigate("/");
+        // console.log(res);
+        authenticateUser(() => navigate(`/meals/${today.toISOString()}`));
+        // navigate(`/`);
+        // navigate(`/meals/${today.toISOString()}`);
       })
       .catch((e) => {
         setError(e.response.data);

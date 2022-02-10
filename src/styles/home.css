@@ -1,0 +1,32 @@
+.home-page {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 2rem;
+}
+
+.home-page .home-block .text {
+  font-size: 1.2rem;
+  margin: 1rem 0;
+}
+
+.home-page .home-block .img {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.home-page .home-block .img img {
+  margin: 1.5rem 0;
+  width: 100%;
+}
+
+.home-page .home-block .img img.duo {
+  height: 35vh;
+}
+
+.home-page .mo {
+  font-family: "Permanent Marker", cursive;
+  font-size: 1.5rem;
+  padding: 1rem 0;
+}

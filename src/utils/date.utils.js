@@ -92,7 +92,7 @@ function getSundayAfterOrEqual(date) {
 }
 
 function getDateFilterFromMonToSun(date) {
-  console.log('--- getDateFilterFromMonToSun - date', date);
+  // console.log('--- getDateFilterFromMonToSun - date', date);
 
   const mondayDate = getMondayBeforeOrEqual(date);
   const sundayDate = getSundayAfterOrEqual(date);
@@ -114,7 +114,7 @@ export function getWeekDates(date) {
     // console.log('i, nextDate', i, nextDate);
     weekDates.push(nextDate);
   }
-  console.log('weekDates', weekDates);
+  // console.log('weekDates', weekDates);
 
   return weekDates;
 }
@@ -133,7 +133,7 @@ export function getNavDates(date) {
   // console.log('i, nextDate', i, nextDate);
   navDates.next = nextDate;
 
-  console.log('navDates', navDates);
+  // console.log('navDates', navDates);
 
   return navDates;
 }

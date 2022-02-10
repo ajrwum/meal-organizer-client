@@ -5,15 +5,37 @@
   flex-direction: column;
   flex-wrap: wrap;
   align-items: flex-start;
+  justify-content: flex-start;
+  gap: 1rem;
+  width: 100vw;
+  margin: 2rem;
+}
+
+.form-content-div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 2rem;
   width: 100%;
 }
 
-/* --- for food display */
+.form-content-div label {
+  font-weight: bold;
+}
 
+/* --- for food display */
 .dnd-action-div {
   display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
+  flex-direction: row-reverse;
+  gap: 4rem;
+}
+
+.meal-type.mobile {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
 }
 
 .added-food {
@@ -69,6 +91,27 @@
 
 .drop-zone.dragover {
   border: 2px dotted red;
+}
+
+.ref-food-list .meal-food {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.ref-food-list .meal-food.mobile {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.ref-food-list .meal-food .food-info {
+  display: flex;
+  justify-content: flex-start;
+}
+
+#drop-target1 {
+  margin-bottom: 1rem;
+  max-width: 80vw;
 }
 
 /* meals display for a given week */
@@ -153,4 +196,14 @@
   height: 10px;
   width: 10px;
   border: 1px solid;
+}
+
+/* --- sur mobile */
+@media (max-width: 400px) {
+  .dnd-action-div {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
 }
