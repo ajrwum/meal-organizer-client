@@ -31,8 +31,7 @@ const OneFood = () => {
       <div className="container">
         <div className="nameWrapper">
           <div className="nameLeft">
-            <p>Name :</p>
-            <span className="foodName">{food?.name}</span>
+            <h2 className="foodName">{food?.name}</h2>
           </div>
           <div className="actionsBtn">
             <Link to={`/foods/food/edit/${id}`}>
@@ -48,7 +47,9 @@ const OneFood = () => {
         </div>
         <div className="categoryWrapper">
           <div className="categoryLeft">
-            <p>Catégorie : </p>
+            <p>
+              <b>Catégorie : </b>
+            </p>
             <span>{food.category?.name}</span>
           </div>
           <div
@@ -57,7 +58,9 @@ const OneFood = () => {
           ></div>
         </div>
         <div className="descriptionWrapper">
-          <p>Description :</p>
+          <p>
+            <b>Description :</b>
+          </p>
           <p>{food.description}</p>
         </div>
       </div>

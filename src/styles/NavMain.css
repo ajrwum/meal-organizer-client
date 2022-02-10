@@ -2,7 +2,8 @@
 
 .NavMain {
   display: flex;
-  gap: 0.5em;
+  justify-content: space-between;
+  gap: 1rem;
   padding: 1rem;
   font-size: 1.3em;
   align-items: center;
@@ -15,11 +16,19 @@
   margin-left: 0.5em;
 }
 
-.navLogout {
+/* .navLogout {
   justify-self: end;
   display: flex;
   width: 70%;
   justify-content: flex-end;
+} */
+
+.navItems {
+  width: -webkit-fill-available;
+}
+
+.navItems .menu {
+  margin-left: 1rem;
 }
 
 .navLogout button {

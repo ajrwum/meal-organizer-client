@@ -41,14 +41,14 @@ const Foods = () => {
 
   return (
     <div className="container">
-      <h2>
-        Tous mes Aliments{" "}
+      <div className="foodTitle">
+        <h2>Tous mes Aliments </h2>
         <span className="addFood">
           <Link to="/foods/food/new">
             <i className="fa-solid fa-plus"></i>
           </Link>
         </span>
-      </h2>
+      </div>
       <div className="filters">
         <button
           className="allFoodBtn"

@@ -12,16 +12,17 @@ const NavMain = () => {
       </NavLink>
       {isLoggedIn && (
         <>
-          <NavLink className="menu" to="/profile">
-            {currentUser && currentUser.email}
-          </NavLink>
-          <NavLink className="menu" to={`/meals/${today.toISOString()}`}>
-            Mes repas
-          </NavLink>
-          {/* <NavLink to="/meals/meal/new">Créer un Repas</NavLink> */}
-          <NavLink className="menu" to="/foods">
-            Mes Aliments
-          </NavLink>
+          <div className="navItems">
+            <NavLink className="menu" to="/profile">
+              {currentUser && currentUser.email}
+            </NavLink>
+            <NavLink className="menu" to={`/meals/${today.toISOString()}`}>
+              Mes repas
+            </NavLink>
+            <NavLink className="menu" to="/foods">
+              Mes Aliments
+            </NavLink>
+          </div>
           <div className="navLogout">
             <button onClick={removeUser}>Déconnexion</button>
           </div>

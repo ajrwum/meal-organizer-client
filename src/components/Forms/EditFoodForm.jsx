@@ -93,7 +93,7 @@ const EditFoodForm = () => {
         ></textarea>
       </div>
       <button className="editFoodFormBtn" onClick={handleSubmit}>
-        Mettre à jour l'aliment
+        Mettre à jour
       </button>
     </form>
   );

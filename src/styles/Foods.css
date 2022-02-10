@@ -1,7 +1,7 @@
 .addFood {
   margin-left: 5rem;
   border: 1px solid;
-  padding: 0 0.5em;
+  padding: 0.5em 1em;
 }
 
 .container {
@@ -11,13 +11,20 @@
   justify-content: center;
 }
 
+.foodTitle {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem;
+  width: 50vw;
+}
+
 .box {
   display: flex;
   justify-content: space-between;
   border: 1px solid;
   padding: 1rem;
   margin: 1rem;
-  width: 33vw;
+  width: 50vw;
 }
 
 .left-items {
@@ -33,7 +40,8 @@
 
 .actionsBtn {
   display: flex;
-  gap: 0.5rem;
+  gap: 1rem;
+  align-items: center;
 }
 
 .actionBtn span {
@@ -48,9 +56,9 @@
   display: flex;
   gap: 0.2em;
   padding: 0.5rem;
-  /* margin: 0 0.5rem; */
+  margin: 0 0.5rem;
   flex-wrap: wrap;
-  width: 50vw;
+  width: 60vw;
 }
 
 .filterBtn,
@@ -94,11 +102,14 @@ form {
 .nameWrapper {
   display: flex;
   gap: 0.5rem;
-  border: 1px solid;
   padding: 1rem;
   margin: 1rem;
   width: 33vw;
   justify-content: space-between;
+}
+
+.lead {
+  font-size: 2rem;
 }
 
 .nameLeft {
@@ -109,7 +120,6 @@ form {
 .categoryWrapper {
   display: flex;
   justify-content: space-between;
-  border: 1px solid;
   padding: 1rem;
   margin: 1rem;
   width: 33vw;
@@ -121,18 +131,27 @@ form {
 }
 
 .descriptionWrapper {
-  border: 1px solid;
   margin: 1rem;
   padding: 1rem;
   width: 33vw;
 }
 
-@media (max-width: 956px) {
+@media (max-width: 1242px) {
   .box {
+    width: 100%;
+  }
+
+  .foodTitle {
     width: 100%;
   }
 
   .filters {
     width: auto;
+  }
+}
+
+@media (max-width: 524px) {
+  .addFood {
+    border: none;
   }
 }
