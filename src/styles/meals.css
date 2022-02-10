@@ -149,6 +149,10 @@
   padding: .3rem .5rem;
 }
 
+.day-title h4 {
+  font-size: 1.3rem;
+}
+
 .day-meals {
   background-color: whitesmoke;
   border: 1px solid lightslategrey;

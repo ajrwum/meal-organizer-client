@@ -30,3 +30,14 @@
   font-size: 1.5rem;
   padding: 1rem 0;
 }
+
+@media (max-width: 400px) {
+
+  .home-page .home-block .img {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+}

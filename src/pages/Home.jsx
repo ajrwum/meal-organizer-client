@@ -13,7 +13,7 @@ const Home = () => {
 
   return (
     <div className="home-page">
-      <h1>Adoptez MO !</h1>
+      <h1>Adoptez M O !</h1>
 
       <div className="home-block">
         <div className="text">

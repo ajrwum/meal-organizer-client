@@ -41,11 +41,12 @@ h6 {
 
 .submit-btn {
   background-color: black;
+  border-radius: 5px;
   color: white;
+  cursor: pointer;
   font-weight: bold;
   margin: 1.5rem 0;
   padding: .5rem 1rem;
-  border-radius: 5px;
 }
 
 .msg {
