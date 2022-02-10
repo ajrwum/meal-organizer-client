@@ -62,6 +62,8 @@ const OneFood = () => {
             <b>Description :</b>
           </p>
           <p>{food.description}</p>
+        </div>
+        <div className="return">
           <NavLink to="/foods" className="submit-btn">
             Retour
           </NavLink>
