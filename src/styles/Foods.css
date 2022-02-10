@@ -8,6 +8,7 @@
   padding: 1rem;
   margin: 2rem;
   font-size: 1.3em;
+  justify-content: center;
 }
 
 .box {
@@ -15,7 +16,7 @@
   justify-content: space-between;
   border: 1px solid;
   padding: 1rem;
-  margin: 1rem 0;
+  margin: 1rem;
   width: 33vw;
 }
 
@@ -28,6 +29,11 @@
   width: 30px;
   border: 1px solid;
   margin-right: 1em;
+}
+
+.actionsBtn {
+  display: flex;
+  gap: 0.5rem;
 }
 
 .actionBtn span {
@@ -50,6 +56,7 @@ form {
   flex-wrap: wrap;
   align-content: center;
   align-items: center;
+  margin-top: 2rem;
 }
 
 .form-group {
@@ -61,9 +68,48 @@ form {
   width: 47vw;
 }
 
-.createAFoodBtn {
+.createAFoodBtn,
+.editFoodFormBtn {
   padding: 0 1em;
   font-size: 1.3em;
+}
+
+/* One Food Styling */
+
+.nameWrapper {
+  display: flex;
+  gap: 0.5rem;
+  border: 1px solid;
+  padding: 1rem;
+  margin: 1rem;
+  width: 33vw;
+  justify-content: space-between;
+}
+
+.nameLeft {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.categoryWrapper {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid;
+  padding: 1rem;
+  margin: 1rem;
+  width: 33vw;
+}
+
+.categoryLeft {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.descriptionWrapper {
+  border: 1px solid;
+  margin: 1rem;
+  padding: 1rem;
+  width: 33vw;
 }
 
 @media (max-width: 956px) {

@@ -1,10 +1,67 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import apiHandler from "../api/apiHandler";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import "../styles/Foods.css";
 
 const OneFood = () => {
+  const [food, setFood] = useState({});
+  const [foods, setFoods] = useState([]);
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    apiHandler
+      .get(`/foods/food/${id}`)
+      .then((response) => {
+        console.log("***response*** :>> ", response);
+        setFood(response.data);
+      })
+      .catch((err) => console.error(err));
+  }, []);
+
+  const handleDelete = (e) => {
+    apiHandler.delete(`/foods/food/${e.target.id}`).then((response) => {
+      setFoods(foods.filter((food) => food._id !== e.target.id));
+      navigate("/foods");
+    });
+  };
+
   return (
-    <div>
-      <h1>Display One Food</h1>
-    </div>
+    <>
+      <div className="container">
+        <div className="nameWrapper">
+          <div className="nameLeft">
+            <p>Name :</p>
+            <span className="foodName">{food?.name}</span>
+          </div>
+          <div className="actionsBtn">
+            <Link to={`/foods/food/edit/${id}`}>
+              <i className="fa-solid fa-pencil"></i>
+            </Link>
+
+            <i
+              id={id}
+              className="fa-solid fa-trash-can"
+              onClick={handleDelete}
+            ></i>
+          </div>
+        </div>
+        <div className="categoryWrapper">
+          <div className="categoryLeft">
+            <p>Catégorie : </p>
+            <span>{food.category?.name}</span>
+          </div>
+          <div
+            className="catColor"
+            style={{ backgroundColor: food.category?.color }}
+          ></div>
+        </div>
+        <div className="descriptionWrapper">
+          <p>Description :</p>
+          <p>{food.description}</p>
+        </div>
+      </div>
+    </>
   );
 };
 

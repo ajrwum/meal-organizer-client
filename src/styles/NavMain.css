@@ -18,7 +18,7 @@
 .navLogout {
   justify-self: end;
   display: flex;
-  width: 45vw;
+  width: 70%;
   justify-content: flex-end;
 }
 
