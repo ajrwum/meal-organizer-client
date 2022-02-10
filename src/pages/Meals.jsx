@@ -64,13 +64,16 @@ const Meals = () => {
   };
 
   return (
-    <div>
+    <div className="meals-display">
       <h2>Semaine du {mondayDateForDisplay}</h2>
       <div className="meal-week-nav">
-        <Link to={`/meals/${navDays.previous.toISOString()}`}>
+        <Link
+          className="actionBtn"
+          to={`/meals/${navDays.previous.toISOString()}`}
+        >
           Semaine précédente
         </Link>
-        <Link to={`/meals/${navDays.next.toISOString()}`}>
+        <Link className="actionBtn" to={`/meals/${navDays.next.toISOString()}`}>
           Semaine suivante
         </Link>
       </div>

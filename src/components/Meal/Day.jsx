@@ -9,9 +9,9 @@ const Day = ({ dayDate, meals, deleteClbk }) => {
   console.log('dayDate :>> ', dayDate);
   console.log('dayDate.toISOString() :>> ', dayDate.toISOString());
   const dayDateForDisplay = dayDate.toLocaleDateString(undefined, {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
+    weekday: 'short',
+    // year: 'numeric',
+    month: 'short',
     day: 'numeric',
   });
   console.log('dayDateForDisplay :>> ', dayDateForDisplay);
@@ -41,7 +41,7 @@ const Day = ({ dayDate, meals, deleteClbk }) => {
               <>
                 <div key={meal._id} className="meal-card">
                   <div className="meal-card-title">
-                    <h5>{meal.type.name}</h5>
+                    <div>{meal.type.name}</div>
                     <div className="meal-card-btn actionBtn">
                       <span>
                         <Link to={`/meals/meal/edit/${meal._id}`}>
@@ -60,11 +60,23 @@ const Day = ({ dayDate, meals, deleteClbk }) => {
                   {meal.foods &&
                     meal.foods.map((food, j) => {
                       return (
+                        // <div
+                        //   key={`${food._id}_${i}_${j}`}
+                        //   className="meal-food"
+                        // >
+                        //   <span>{food.name}</span>
+                        // </div>
                         <div
                           key={`${food._id}_${i}_${j}`}
-                          className="meal-food"
+                          className="food-info"
                         >
-                          <span>{food.name}</span>
+                          <div
+                            className="catColor"
+                            style={{
+                              backgroundColor: food.category?.color,
+                            }}
+                          ></div>
+                          <span className="meal-food">{food.name}</span>
                         </div>
                       );
                     })}

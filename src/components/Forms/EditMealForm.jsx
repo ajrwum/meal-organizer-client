@@ -9,6 +9,9 @@ const EditMealForm = () => {
   const { mealId } = useParams();
   console.log('--- EditMealForm - mealId :>> ', mealId);
 
+  // to add button when on mobile device
+  const [deviceType, setDeviceType] = useState('');
+
   // reference lists from db
   const [mealTypes, setMealTypes] = useState([]);
   const [dbFoods, setDbFoods] = useState([]);
@@ -40,6 +43,31 @@ const EditMealForm = () => {
   });
   console.log('mealDateForDisplay :>> ', mealDateForDisplay);
   console.log('******** dateTemp :>> ', dateTemp);
+
+  // testing the device (mobile or not)
+  useEffect(() => {
+    let hasTouchScreen = false;
+    if ('maxTouchPoints' in navigator) {
+      hasTouchScreen = navigator.maxTouchPoints > 0;
+    } else if ('msMaxTouchPoints' in navigator) {
+      hasTouchScreen = navigator.msMaxTouchPoints > 0;
+    } else {
+      const mQ = window.matchMedia && matchMedia('(pointer:coarse)');
+      if (mQ && mQ.media === '(pointer:coarse)') {
+        hasTouchScreen = !!mQ.matches;
+      } else if ('orientation' in window) {
+        hasTouchScreen = true; // deprecated, but good fallback
+      } else {
+        // Only as a last resort, fall back to user agent sniffing
+        var UA = navigator.userAgent;
+        hasTouchScreen =
+          /\b(BlackBerry|webOS|iPhone|IEMobile)\b/i.test(UA) ||
+          /\b(Android|Windows Phone|iPad|iPod)\b/i.test(UA);
+      }
+    }
+    if (hasTouchScreen) setDeviceType('mobile');
+    else setDeviceType('desktop');
+  }, []);
 
   // getting current values for the meal to edit
   useEffect(() => {
@@ -118,18 +146,33 @@ const EditMealForm = () => {
       document.getElementById(foodId)
     );
     if (!foods.includes(foodId)) {
-      // e.target.appendChild(document.getElementById(foodId));
-      const foodName = document.getElementById(foodId).innerHTML;
-      // const clone = document.getElementById(foodId).cloneNode();
-      // clone.innerHTML = foodName;
-      // console.log('clone :>> ', clone);
-      // e.target.appendChild(clone);
       setFoods([...foods, foodId]);
       apiHandler.get(`/foods/food/${foodId}`).then(({ data }) => {
         setAddedFoods([...addedFoods, data]);
       });
     } else {
-      setMsg({ type: 'warn', text: 'Cet aliment a déjà été ajouté' });
+      setMsg({ type: 'warning', text: 'Cet aliment a déjà été ajouté' });
+    }
+    return false;
+  };
+
+  const handleAddByClick = (e) => {
+    console.log('--- handleAddByClick - e.target :>> ', e.target);
+    e.preventDefault();
+
+    // reset message for new add
+    setMsg(null);
+
+    const foodId = e.target.id;
+
+    // prevent duplicate add
+    if (!foods.includes(foodId)) {
+      setFoods([...foods, foodId]);
+      apiHandler.get(`/foods/food/${foodId}`).then(({ data }) => {
+        setAddedFoods([...addedFoods, data]);
+      });
+    } else {
+      setMsg({ type: 'warning', text: 'Cet aliment a déjà été ajouté' });
     }
     return false;
   };
@@ -184,7 +227,7 @@ const EditMealForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="meal-form edit" onSubmit={handleSubmit}>
       <h2>Modification de repas</h2>
 
       {msg && (
@@ -232,7 +275,53 @@ const EditMealForm = () => {
           <div className="meal-drag-div">
             <h3>Tous les aliments :</h3>
             <div>
-              {dbFoods &&
+              {deviceType === 'mobile'
+                ? dbFoods &&
+                  dbFoods.map((dbFood) => {
+                    return (
+                      <div
+                        key={dbFood._id}
+                        value={dbFood._id}
+                        className="draggable-food meal-food"
+                        draggable="true"
+                      >
+                        <div className="food-info">
+                          <div
+                            className="catColor"
+                            style={{ backgroundColor: dbFood.category?.color }}
+                          ></div>
+                          <span className="food-name">{dbFood.name}</span>
+                        </div>
+                        <button
+                          id={dbFood._id}
+                          className="actionBtn"
+                          onClick={handleAddByClick}
+                        >
+                          Ajouter
+                        </button>
+                      </div>
+                    );
+                  })
+                : dbFoods &&
+                  dbFoods.map((dbFood) => {
+                    return (
+                      <div
+                        key={dbFood._id}
+                        id={dbFood._id}
+                        value={dbFood._id}
+                        className="draggable-food meal-food"
+                        draggable="true"
+                        onDragStart={handleDragStart}
+                      >
+                        <div
+                          className="catColor"
+                          style={{ backgroundColor: dbFood.category?.color }}
+                        ></div>
+                        <span className="food-name">{dbFood.name}</span>
+                      </div>
+                    );
+                  })}
+              {/* {dbFoods &&
                 dbFoods.map((dbFood) => {
                   return (
                     <div
@@ -246,7 +335,7 @@ const EditMealForm = () => {
                       {dbFood.name}
                     </div>
                   );
-                })}
+                })} */}
             </div>
           </div>
 
@@ -277,11 +366,22 @@ const EditMealForm = () => {
                         key={`added_${addedFood._id}`}
                         id={`added_${addedFood._id}`}
                         value={addedFood._id}
-                        className="added-food"
+                        className="added-food meal-food"
                       >
-                        <span>{addedFood.name}</span>
-                        <button onClick={handleDeleteFoodFromMeal}>
-                          Supprimer
+                        <div className="food-info">
+                          <div
+                            className="catColor"
+                            style={{
+                              backgroundColor: addedFood.category?.color,
+                            }}
+                          ></div>
+                          <span className="food-name">{addedFood.name}</span>
+                        </div>
+                        <button
+                          className="actionBtn"
+                          onClick={handleDeleteFoodFromMeal}
+                        >
+                          Retirer
                         </button>
                       </div>
                     );

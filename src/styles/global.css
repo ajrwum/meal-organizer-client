@@ -28,3 +28,22 @@ h5,
 h6 {
   font-family: "Nothing You Could Do";
 }
+
+.fa-solid {
+  cursor: pointer;
+}
+
+.msg {
+  margin: .8rem 0;
+  padding: .5rem 1rem;
+  border: 1px solid lightslategrey;
+  border-radius: 5px;
+}
+
+.msg.error {
+  background-color: lightpink;
+}
+
+.msg.warning {
+  background-color: lightyellow;
+}
