@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import apiHandler from "../api/apiHandler";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, Link, useNavigate, NavLink } from "react-router-dom";
 import "../styles/Foods.css";
 
 const OneFood = () => {
@@ -62,6 +62,9 @@ const OneFood = () => {
             <b>Description :</b>
           </p>
           <p>{food.description}</p>
+          <NavLink to="/foods" className="submit-btn">
+            Retour
+          </NavLink>
         </div>
       </div>
     </>
