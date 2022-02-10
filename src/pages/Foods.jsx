@@ -6,12 +6,21 @@ import "../styles/Foods.css";
 
 const Foods = () => {
   const [foods, setFoods] = useState([]);
+  const [categories, setCategories] = useState(null);
+  const [isFilterDeactivated, setIsFilterDeactivated] = useState(false);
 
   useEffect(() => {
     console.log("component mounted");
     apiHandler.get("/foods").then(({ data }) => {
       console.log("foods - apiRes.data >>>", data);
       setFoods(data);
+    });
+  }, [isFilterDeactivated]);
+
+  useEffect(() => {
+    apiHandler.get("/foods/categories").then((response) => {
+      console.log("response :>> ", response);
+      setCategories(response.data);
     });
   }, []);
 
@@ -21,16 +30,47 @@ const Foods = () => {
     });
   };
 
+  const handleFilter = (e) => {
+    console.log("filtering... :>> ");
+    e.preventDefault();
+    apiHandler.get(`/foods/${e.target.id}`).then((response) => {
+      console.log("***response*** :>> ", response);
+      setFoods(response.data);
+    });
+  };
+
   return (
     <div className="container">
-      <h2>
-        Tous mes Aliments{" "}
+      <div className="foodTitle">
+        <h2>Tous mes Aliments </h2>
         <span className="addFood">
           <Link to="/foods/food/new">
             <i className="fa-solid fa-plus"></i>
           </Link>
         </span>
-      </h2>
+      </div>
+      <div className="filters">
+        <button
+          className="allFoodBtn"
+          onClick={() => setIsFilterDeactivated(!isFilterDeactivated)}
+        >
+          Tous
+        </button>
+        {categories &&
+          categories.map((category) => {
+            return (
+              <button
+                key={category._id}
+                id={category._id}
+                className="filterBtn"
+                style={{ backgroundColor: category.color }}
+                onClick={handleFilter}
+              >
+                {category.name}
+              </button>
+            );
+          })}
+      </div>
 
       {foods &&
         foods.map((food) => {
