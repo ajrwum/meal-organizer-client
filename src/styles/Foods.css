@@ -68,8 +68,13 @@
 }
 
 /* One Food Form Styling */
+.createTitle {
+  margin: 1rem;
+  font-size: 2rem;
+}
 
-form {
+form,
+.formWrapper {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;

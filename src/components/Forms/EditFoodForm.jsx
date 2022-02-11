@@ -47,7 +47,7 @@ const EditFoodForm = () => {
 
   return (
     <form>
-      <h2>Editer l'aliment</h2>
+      <h2 className="title">Editer l'aliment</h2>
       <div className="form-group">
         <label htmlFor="name">Nom :</label>
         <br />
@@ -66,6 +66,7 @@ const EditFoodForm = () => {
         <select
           name="category"
           id="category"
+          className="form-control"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
         >

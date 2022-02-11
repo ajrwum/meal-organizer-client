@@ -37,62 +37,60 @@ const OneFoodForm = ({ action }) => {
   };
 
   return (
-    <div>
+    <form onSubmit={handleSubmit}>
       <h2 className="title">Créer un Aliment</h2>
-      <form className="form" onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="name">Nom :</label>
-          <br />
-          <input
-            className="form-control"
-            type="text"
-            name="name"
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </div>
+      <div className="form-group">
+        <label htmlFor="name">Nom :</label>
+        <br />
+        <input
+          className="form-control"
+          type="text"
+          name="name"
+          id="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+      </div>
 
-        <div className="form-group">
-          <label htmlFor="category">Catégorie :</label>
-          <br />
-          <select
-            className="form-control"
-            name="category"
-            id="category"
-            // value={categories}
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            <option value="-1" disabled selected>
-              Selectionnez une catégorie
-            </option>
-            {categories &&
-              categories.map((category) => {
-                return (
-                  <option key={category._id} value={category._id}>
-                    {category.name}
-                  </option>
-                );
-              })}
-          </select>
-        </div>
+      <div className="form-group">
+        <label htmlFor="category">Catégorie :</label>
+        <br />
+        <select
+          className="form-control"
+          name="category"
+          id="category"
+          // value={categories}
+          onChange={(e) => setCategory(e.target.value)}
+        >
+          <option value="-1" disabled selected>
+            Selectionnez une catégorie
+          </option>
+          {categories &&
+            categories.map((category) => {
+              return (
+                <option key={category._id} value={category._id}>
+                  {category.name}
+                </option>
+              );
+            })}
+        </select>
+      </div>
 
-        <div className="form-group">
-          <label htmlFor="description">Description :</label>
-          <br />
-          <textarea
-            className="form-control"
-            name="description"
-            id="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            cols="70"
-            rows="5"
-          ></textarea>
-        </div>
-        <button className="submit-btn">Créer</button>
-      </form>
-    </div>
+      <div className="form-group">
+        <label htmlFor="description">Description :</label>
+        <br />
+        <textarea
+          className="form-control"
+          name="description"
+          id="description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          cols="70"
+          rows="5"
+        ></textarea>
+      </div>
+      <button className="submit-btn">Créer</button>
+    </form>
   );
 };
 
