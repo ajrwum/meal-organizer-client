@@ -3,6 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import apiHandler from '../../api/apiHandler';
 import UserContext from '../../auth/UserContext';
 import useDeviceDetection from '../../hooks/useDeviceDetection'; // custom hook
+import FoodCategoryFilter from '../Food/FoodCategoryFilter';
+import ResetCategoryFilter from '../Food/ResetCategoryFilter';
 
 import './../../styles/meals.css';
 
@@ -17,6 +19,9 @@ const CreateMealForm = () => {
   // reference lists from db
   const [mealTypes, setMealTypes] = useState([]);
   const [dbFoods, setDbFoods] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [isFilterDeactivated, setIsFilterDeactivated] = useState(false);
+
   // states for the meal form
   const [type, setType] = useState('');
   const [foods, setFoods] = useState([]);
@@ -56,7 +61,35 @@ const CreateMealForm = () => {
       // console.log('dbFoods - apiRes.data :>> ', data);
       setDbFoods(data);
     });
-  }, [foods, addedFoods]);
+  }, [foods, addedFoods, isFilterDeactivated]);
+
+  // getting all food categories to allow filtering on it
+  useEffect(() => {
+    apiHandler.get('/foods/categories').then(({ data }) => {
+      console.log('data :>> ', data);
+      setCategories(data);
+    });
+  }, []);
+
+  // providing filters on food categories to ease the search for foods to add to meal
+  const handleFilter = (e) => {
+    console.log('--- handleFilter');
+    // to prevent the post of the whole form prematurely
+    e.preventDefault();
+    // getting foods matching the chosen category
+    apiHandler.get(`/foods/${e.target.id}`).then(({ data }) => {
+      console.log('filtered dbFoods ', data);
+      setDbFoods(data);
+    });
+  };
+
+  const handleResetFilter = (e) => {
+    console.log('--- handleResetFilter');
+    // to prevent the post of the whole form prematurely
+    e.preventDefault();
+    // forcing the reset of dbFoods
+    setIsFilterDeactivated(!isFilterDeactivated);
+  };
 
   // browser only (no touch event support)
   const handleDragStart = (e) => {
@@ -221,6 +254,27 @@ const CreateMealForm = () => {
         <div className="dnd-action-div">
           <div className="meal-drag-div">
             <h3>Tous les aliments :</h3>
+            <div className="ref-food-filters">
+              <div className="filter-intro">
+                <span>Afficher : </span>
+              </div>
+              <ResetCategoryFilter
+                label="Tous"
+                cssClass="allFoodBtn"
+                actionClbk={handleResetFilter}
+              />
+              {categories &&
+                categories.map((category) => {
+                  return (
+                    <FoodCategoryFilter
+                      category={category}
+                      cssClass="filterBtn"
+                      actionClbk={handleFilter}
+                    />
+                  );
+                })}
+            </div>
+
             <div className="ref-food-list">
               {deviceType === 'mobile'
                 ? dbFoods &&

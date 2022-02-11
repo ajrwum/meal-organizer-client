@@ -14,6 +14,8 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  background-color: whitesmoke;
+  padding: .3rem .3rem;
 }
 
 .home-page .home-block .img img {
